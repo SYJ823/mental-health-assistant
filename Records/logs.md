@@ -2,9 +2,7 @@
 
 ## 20260401 log
 
-***搭建环境   node.js、npm、nvm、Trae、element-plus***
-
-
+##### **搭建环境   node.js、npm、nvm、Trae、element-plus**
 
 - 由于之前下载过其他版本的node.js，故本次需重新安装要求版本的node.js。
 
@@ -31,11 +29,7 @@
 
 ## 20260407 log
 
-***引入Router路由*、配置路由、 创建后台路由实例**
-
-***layout布局***
-
-
+##### **配置路由**
 
 - 新拉一个终端 安装vue-router
 
@@ -46,60 +40,102 @@
 
 - 在src文件下新建文件夹router以及文件index.js
 
-    内容包括：引入创建方法、路由模式（histoty模式）
+  内容包括：引入创建方法、路由模式（histoty模式）
 
--  配置路由并创建后台路由实例   
+- 配置路由并创建后台路由实例   
 
   1. 先配置路由规则：即一个数组，里面每个{}都是一条路由--包括这个路由的**地址path**（自己定义url路径名字）,**渲染的组件component**和**嵌套的子路由children[]**（子路由路径不加/）
   2. 再创建实例：传入两个核心配置--路由模式history和路由规则数组routes（即刚刚配置的）
   3. 导出路由实例
 
-- 在component文件夹里创建后台根组件BackendLayout.vue
+- 在component文件夹里创建后台组件BackendLayout.vue
 
-  ​     即刚刚渲染在后台顶级路由的组件BackendLayout
+  ​     即刚刚后台顶级路由要渲染的组件BackendLayout
 
-  ​
+##### layout布局
 
 - 去Element Plus官网选择合适的layout布局代码粘贴到BackendLayout.vue组件
 
 - 设置css样式（资源），并下载**sass依赖**（加强版CSS），把backend-layout设置为全屏高度
 
-    ```
-    npm i sass@1.97.2
-    ```
+  ```
+  npm i sass@1.97.2
+  ```
 
 - 分别布局菜单和导航区域组件
 
 - 新建文件夹views(放页面文件)，写dashboard.vue组件并配置该子路由
 
-    ​
+  ​
 
-    ##### **疑难杂症**：
+##### 疑难杂症：
 
+- **删除helloworld后页面报错显示找不到helloworld文件？**  
 
-- 删除helloworld后页面报错显示找不到helloworld文件？  
+  更改代码后记得ctrl+s保存
 
-  更改代码后记得ctrl+s保存 
+   /Trae可以设置自动保存 设置-editor-autoSave-afterPlay
 
-- router下错位置？
+- **router下错位置？**
 
   记得在项目package.json（存放核心配置文件）所在的目录下执行命令
 
   ```
-  cd xx  //进入下一级目录
+  cd xx/xx  //进入指定目录
   ```
 
 
-- 报错不认识@符？
+- **报错不认识@符？**
 
   方法1.使用相对路径 ..（比较麻烦，要一级一级找）
 
   方法2.到vite.config.js文件里引入resolve并定义@符为src的别名
 
   - alias = 别名、快捷方式
+  - __dirname表示当前根目录
+  - resolve(__dirname, 'src'),表示把vite.config所在的根目录与src拼接起来，这样就得到了src的绝对路径D:/GitHub/mental-health-assistant/code/ai-vue/src  
+
+- **router-view怎么渲染想要的组件？**
+
+  URL 变化 （/back等）→ Router 查表 → 找到对应组件 → 传给 <router-view> 渲染
 
 
-  - __dirname表示当前根目录  
 
 
-  - resolve(__dirname, 'src'),表示把vite.config所在的根目录与src拼接起来，这样就得到了src的绝对路径D:/GitHub/mental-health-assistant/code/ai-vue/src
+## 20260408 log
+
+##### ***菜单效果实现***   
+
+- 配置菜单各级要渲染的子路由
+
+  到router/index.js 配置meta(自定义元信息对象)，包括标题名称和图标名称
+
+
+- 安装图标库（Elment plus官网）-注意安装目录
+
+  ```
+  npm install @element-plus/icons-vue
+  ```
+
+
+- 渲染数据
+
+  Sidebar.vue引入useRouter(注意不要引入成useRoutes)，并创建实例routes
+
+  到Element Plus 官网选择合适的菜单代码（Menu）复制粘贴到Sidebar.vue组件 ，去掉不要的代码，留一个部分即可 
+
+  v-for循环渲染routes.optonal.routes[0].children （可提前打印routes看子路由在哪个部分）
+
+  key、index为path即可，唯一标识符，注意加冒号:
+
+  渲染图标组件
+
+##### 疑难杂症
+
+- **自动格式化代码？**
+
+  安装格式化插件：Pretter -Code formatter
+
+  Trae设置-Editor：Default Formatter 选择安装的插件
+
+  启动保存时格式化 设置搜索Format On Save 勾选

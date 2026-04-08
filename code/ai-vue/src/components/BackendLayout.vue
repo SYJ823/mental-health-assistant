@@ -1,5 +1,5 @@
 <template>
-<div class="backend-layout">
+  <div class="backend-layout">
     <el-container>
       <Sidebar />
       <el-container>
@@ -15,13 +15,12 @@
 </template>
 
 <script setup>
-import Sidebar from './Sidebar.vue'
-import Navbar from './Navbar.vue'
-
+import Sidebar from "./Sidebar.vue";
+import Navbar from "./Navbar.vue";
 </script>
 
-<style  lang="scss" scoped>
+<style lang="scss" scoped>
 .backend-layout {
-  height: 100vh;  /* 全屏高度 */
+  height: 100vh; /* 全屏高度 */
 }
 </style>
