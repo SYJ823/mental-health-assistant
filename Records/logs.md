@@ -120,15 +120,20 @@
 
 - 渲染数据
 
-  Sidebar.vue引入useRouter(注意不要引入成useRoutes)，并创建实例routes
+  - Sidebar.vue引入useRouter(注意不要引入成useRoutes)，并创建实例routes
 
-  到Element Plus 官网选择合适的菜单代码（Menu）复制粘贴到Sidebar.vue组件 ，去掉不要的代码，留一个部分即可 
 
-  v-for循环渲染routes.optonal.routes[0].children （可提前打印routes看子路由在哪个部分）
 
-  key、index为path即可，唯一标识符，注意加冒号:
+  - 到Element Plus 官网选择合适的菜单代码（Menu）复制粘贴到Sidebar.vue组件 ，去掉不要的代码，留一个部分即可 
 
-  渲染图标组件
+
+
+  - v-for循环渲染router.optonal.routes[0].children （可提前打印routes看子路由在哪个部分）
+
+
+  ​        key、index为path即可，唯一标识符，注意加冒号:
+
+  - 渲染图标组件
 
 ##### 疑难杂症
 
@@ -139,3 +144,145 @@
   Trae设置-Editor：Default Formatter 选择安装的插件
 
   启动保存时格式化 设置搜索Format On Save 勾选
+
+- **useRoute和useRouter区别？**
+
+  Route  路由数据--->读信息（参数、地址）
+
+  Router  路由工具--->做操作（跳转、返回）
+
+  | 特性                | `useRoute`                                                | `useRouter`                                          |
+  | ------------------- | --------------------------------------------------------- | ---------------------------------------------------- |
+  | **作用**            | **获取当前路由信息**（只读）                              | **控制路由行为**（编程式导航）                       |
+  | **返回值**          | 当前路由对象（`RouteLocation`）                           | 全局路由实例（`Router`）                             |
+  | **常用属性 / 方法** | `route.path`、`route.params`、`route.query`、`route.name` | `router.push()`、`router.replace()`、`router.back()` |
+  | **响应式**          | ✅ 是                                                      | ❌ 实例本身不是，但方法可触发路由变化                 |
+  | **记忆口诀**        | **Route = 路由数据（看信息）**                            | **Router = 路由工具（做跳转）**                      |
+
+
+- **不显示图标?**
+
+  标签写法遗漏 :is
+
+  动态标签component不是属性，要写在<el -icon> </el-icon>标签内部并自闭合 /
+
+  安装后图标库后还要导入注册接收 到main.js 
+
+  ```
+  import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
+  const app = createApp(App)
+
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+  }  //全局注册
+  ```
+
+  必须先 `createApp(App)` → 再注册图标 → 最后 `mount`
+
+
+- key和index区别？
+
+  key：给Vue虚拟DOM用，表示每个节点的唯一身份
+
+  ​	  Vue 官方要求 的循环属性，让 Vue 区分每个菜单项，**避免渲染错乱**
+
+  index：Element Plus 菜单属性
+
+## 202604010 log
+
+##### ***菜单显示优化***
+
+布局顶部标签和标题、css样式优化(高度铺满)
+
+- 图片要进行引入 参数包括地址和后面的固定参数
+
+```
+const iconUrl = new URL('@/assets/images/机器人.png', import.meta.url).href
+```
+
+##### *Navbar导航栏效果实现*
+
+- 左右两部分都是flex布局，提前写好flex-box样式并配置div
+- 左边部分包含一个按钮和标题
+  - 按钮显示一个展开/折叠图标，图标名称为`<Expand />`，写在`<el-icon>`图标容器组件里
+  - 标题先写固定的
+  - 补充样式
+
+
+- 右边部分包含一个用户头像、用户名和下拉菜单
+
+  - 用户头像  使用`<el-avatar> `（ **Element Plus UI 组件库** 中用于展示**用户头像**的组件，支持**图片、图标、文字**三种形式）默认地址
+
+  - 用户名 先写固定的
+
+  - 向下的箭头 图标名称：`ArrowDown`
+
+  - 下拉菜单用ElmentPlus现成的`el-dropdown`组件，里面包含一个`<el-dropdown>` 组件**自带的**自定义事件`@command`,用于**统一处理下拉菜单的点击**
+
+    - **原理**：当点击 `<el-dropdown-item>` 时，该组件会把此菜单项上 **:command 属性的值**（字符串、数字、对象），自动传给父组件 `<el-dropdown>` 的 `@command` 事件。
+    - 定义handleCommend事件
+
+
+    - 鼠标移过弹出来的菜单内容必须放在名为` #dropdown` 的插槽里（#号表示v-slot）（第二层）
+
+##### *跳转路由*
+
+菜单栏设置点击事件
+
+获取当前路由并拼接要跳转的路由地址名(点击事件传入的参数)
+
+router.push实现路由跳转
+
+##### *PageHead组件封装*
+
+除数据分析外，其他页面头部都有差不多的部分，把这一部分组件化-PageHead.vue
+
+- 标题部分，内容来自父级路由组件传过来的title参数
+
+
+- 按钮部分，预留具名插槽button，父级路由可以插入`<el-button>`按钮
+
+
+- 各父级路由组件引入该组件并使用传参、传插槽内容
+
+调整CSS样式使其对齐
+
+##### *疑难杂症**
+
+- **为什么要‘引入’图片？**
+
+  new URL的作用是打包处理本地文件路径，返回可直接用于src的最终URL
+
+  如果不打包，vite不知道是文件，不会自动处理直接写的源代码路径（`@/assets/...` ），浏览器拿到的是一串字符串，图片无法显示
+
+  所以**Vite 里用本地图片：必须包一层 new URL ()**
+
+
+-  **`<el-image>`是什么？**
+
+  Element Plus 提供的图片组件 `<el-image>`，作用和原生 `<img>` 一样，就是在页面上显示一张图片，但功能更强（支持懒加载、加载失败占位、预览等）。
+
+- **写完下拉菜单报错？**
+
+  用户头像和用户名和图标要写在`<el-dropdown @command="handleCommand">`组件里，即组件的触发区(第一层)
+
+
+- **`@click`事件传给函数的`key`是什么参数?**
+
+  我们这里用的是`el-menu-item` 自身绑定的 `@click`事件，参数为菜单单项实例（被 Vue 代理过的 Proxy 对象）里面有index，即一开始传的item.path,这样便拿到了url地址
+
+  如果使用vue自身的click事件，参数是浏览器鼠标事件event，拿不到index参数
+
+  如果使用`el-menu`绑定的`@seclet`事件，参数是(index: string, indexPath: string[])
+
+
+- primary参数是什么？
+
+  `<el-button>`的颜色样式按钮，还支持的类型：
+
+  - primary（蓝）
+  - success（绿）
+  - warning（黄）
+  - danger（红）
+  - info（灰）
