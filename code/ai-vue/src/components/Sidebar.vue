@@ -1,12 +1,16 @@
 <template>
-  <el-menu default-active="2" class="menu-style">
+  <el-aside :width="isCollapse ? '64px' : '264px'">
+  <el-menu default-active="2" class="menu-style"
+  :collapse="isCollapse"
+  :collapse-transition="false">
     <div class="brand">
       <el-image
         style="width: 50px; height: 50px; margin-right: 10px"
         :src="iconUrl"
         alt="logo"
       />
-      <div class="info-card">
+      <div class="info-card"
+       v-show="!isCollapse">
         <h1 class="brand-title">心理健康AI助手</h1>
         <p class="brand-subtitle">管理后台</p>
       </div>
@@ -22,12 +26,18 @@
       <span>{{ item.meta.title }}</span>
     </el-menu-item>
   </el-menu>
+  </el-aside>
 </template>
 
 <script setup>
+import { computed } from "vue";
 import { useRouter } from "vue-router";
+import { useAdminStore } from "@/stores/admin";
 
 const router = useRouter();
+
+const isCollapse = computed(() => useAdminStore().isCollapse)
+
 
 const selectMenu = (key) => {
   console.log(key);

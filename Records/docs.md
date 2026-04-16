@@ -14,7 +14,9 @@
 
 后端接口地址: http://159.75.169.224:1235
 
-接口文档：http://xslle23zpk.apifox.cn/
+接口文档：https://xsl1e23zpk.apifox.cn/
+
+开发者工具Vue DevTools：[Vite Plugin | Vue DevTools](https://devtools.vuejs.org/guide/vite-plugin)
 
 
 
