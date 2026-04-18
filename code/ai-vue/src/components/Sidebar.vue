@@ -40,7 +40,7 @@ const isCollapse = computed(() => useAdminStore().isCollapse)
 
 
 const selectMenu = (key) => {
-  console.log(key);
+  // console.log(key);
   
   const currentRoute = router.options.routes[0];
   router.push(`${currentRoute.path}/${key.index}`);//跳转对应路由
