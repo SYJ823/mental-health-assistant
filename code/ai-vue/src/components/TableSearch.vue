@@ -35,8 +35,7 @@ import { reactive, computed, ref } from "vue";
 
 const emit = defineEmits(["search"]);
 
-const formRef = ref()
-
+const formRef = ref();
 
 const props = defineProps({
   formItem: {
@@ -66,7 +65,7 @@ const handleSearch = () => {
 };
 const handleReset = (formEL) => {
   //先重置表单，再触发查询事件
-  if(!formEL) return;
+  if (!formEL) return;
   formEL.resetFields();
 
   emit("search", formData);
