@@ -2,7 +2,7 @@
   <div>
     <PageHead title="知识文章">
       <template #button>
-        <el-button type="primary">新增</el-button>
+        <el-button type="primary" @click="handleEdit({})">新增</el-button>
         <!-- type="primary"：主要按钮样式（蓝色） -->
       </template>
     </PageHead>
@@ -26,18 +26,26 @@
       </el-table-column>
        <el-table-column prop="authorName" label="作者" width="200" />
        <el-table-column prop="readCount" label="阅读量" width="200" />
-       <el-table-column prop="publishedAt" label="发布时间" width="200" />
+       <el-table-column prop="updatedAt" label="发布时间" width="200" />
        <el-table-column label="操作"  width="240"  fixed="right">
         <template #default="scope">
           <div style="display: flex; align-items: center;">
-            <el-button text type="primary">编辑</el-button>
-            <el-button v-if="scope.row.status === 0||scope.row.status === 2"  text type="success">发布</el-button>
-            <el-button v-else-if="scope.row.status === 1"  text type="warning">下线</el-button>
-            <el-button text type="danger">删除</el-button>
+            <el-button text type="primary" @click="handleEdit(scope.row)">编辑</el-button>
+            <el-button @click="handlePublish(scope.row)" v-if="scope.row.status === 0||scope.row.status === 2"  text type="success">发布</el-button>
+            <el-button @click="handleUnpublish(scope.row)" v-else-if="scope.row.status === 1"  text type="warning">下线</el-button>
+            <el-button @click="handleDelete(scope.row)" text type="danger">删除</el-button>
           </div>
         </template>
       </el-table-column>
     </el-table>
+    <el-pagination
+      style="margin-top: 25px;"
+      :total="pagination.total"
+      v-model:page-size="pagination.size"
+      layout="prev, pager, next"
+      @change="handleChange"
+    />
+    <ArticleDialog v-model:modelValue="dialogVisible" :categories="categories" :article="currentArticle" @success="handleSuccess"></ArticleDialog>
   </div>
 </template>
 
@@ -45,7 +53,9 @@
 import { onMounted, reactive, ref } from "vue";
 import PageHead from "@/components/PageHead.vue";
 import TableSearch from "@/components/TableSearch.vue";
-import { categoryTree, articlePage } from "@/api/admin";
+import { categoryTree, articlePage,getArticleDetail,changeArticleStatus,deleteArticle } from "@/api/admin";
+import ArticleDialog from "@/components/ArticleDialog.vue";
+import { ElMessageBox,ElMessage } from "element-plus";
 
 const formItem = [
   {
@@ -109,6 +119,79 @@ const categoryMap = reactive({});
 // 分类列表
 const categories = ref([]);
 
+// 分页改变时触发
+const handleChange = (val) => {
+  pagination.currentPage = val;
+  handleSearch();
+};  
+
+// 提交文章
+const handleSuccess =  () => {
+  dialogVisible.value = false;
+  handleSearch();
+};
+
+//新增和编辑
+// 弹窗显示状态
+const dialogVisible = ref(false);
+// 新增or编辑文章
+const currentArticle = ref(null);
+const handleEdit = (row) => {
+  if(!row.id) {
+    //新增文章
+    currentArticle.value = null;
+    dialogVisible.value = true;
+  }
+ else { 
+  //编辑文章
+    getArticleDetail(row.id).then(res =>{
+    console.log(res,"res");
+    currentArticle.value = res;
+    dialogVisible.value = true; //获取文章详情
+  });
+}
+};
+
+// 发布文章
+const handlePublish = (row) => {
+  ElMessageBox.confirm(`确认发布文章${row.title}吗？`, '确认', {
+    confirmButtonText: '确定发布',
+    cancelButtonText: '取消',
+    type: 'info',
+  }).then(() => {
+    changeArticleStatus(row.id, { status: 1 }).then(() => {
+      ElMessage.success('发布成功');
+      handleSearch();
+    });
+  });
+};
+// 下线文章
+const handleUnpublish = (row) => {
+  ElMessageBox.confirm(`确认下线文章${row.title}吗？`, '确认', {
+    confirmButtonText: '确定下线',
+    cancelButtonText: '取消',
+    type: 'info',
+  }).then(() => {
+    changeArticleStatus(row.id, { status: 2 }).then(() => {
+      ElMessage.success('下线成功');
+      handleSearch();
+    });
+  });
+};
+// 删除文章
+const handleDelete = (row) => {
+  ElMessageBox.confirm(`确认删除文章${row.title}吗？`, '确认', {
+    confirmButtonText: '确定删除',
+    cancelButtonText: '取消',
+    type: 'danger',
+  }).then(() => {
+    deleteArticle(row.id).then(() => {
+      ElMessage.success('删除成功');
+      handleSearch();
+    });
+  });
+};
+
 onMounted(async () => {
   const data = await categoryTree();
 
@@ -120,9 +203,13 @@ onMounted(async () => {
       value: item.id,
     };
   });
+  
   formItem[1].options = categories.value;
     
   // 获取文章列表
   handleSearch() 
 }); 
+
+
+
 </script>

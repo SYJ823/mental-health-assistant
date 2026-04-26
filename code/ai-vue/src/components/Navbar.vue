@@ -4,7 +4,7 @@
       <el-button @click="handleCollapse">      
         <el-icon><Expand /></el-icon>
       </el-button>
-      <p class="page-title">导航栏</p>
+      <p class="page-title">{{ route.meta.title }}</p>
     </div>
     <div class="flex-box">
       <el-dropdown @command="handleCommand">
@@ -26,6 +26,10 @@
 </template>
 <script setup>
 import { useAdminStore } from '@/stores/admin'
+import { useRouter, useRoute } from 'vue-router'
+
+const router = useRouter();
+const route = useRoute();
 
 const handleCollapse = () => {
   useAdminStore().toggleCollapse()

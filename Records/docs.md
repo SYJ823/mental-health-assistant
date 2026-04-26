@@ -1,22 +1,31 @@
 # 环境配置
 
-**node.js版本**  v24.12.0
+##### node.js版本  v24.12.0
 
-**推荐使用nvm**   http://nvm.uihtm.com
+<https://nodejs.org/zh-cn/download>
 
-**编辑器：**Trae  http://www.trae.cn/
+**推荐使用nvm** [https://nvm.uihtm.com](https://nvm.uihtm.com/)
 
-**字体图标库:**   http://www.iconfont.cn/
+**编辑器**
 
-**组件库:**   https://www.element-plus.org/
+- Trae <https://www.trae.cn/>
+- vsCode <https://code.visualstudio.com/>
 
-富文本编辑器插件官网 http://www.wangeditor.com/
+**字体图标库 **<https://www.iconfont.cn/>
 
-后端接口地址: http://159.75.169.224:1235
+富文本编辑器插件官网 <https://www.wangeditor.com/>
 
-接口文档：https://xsl1e23zpk.apifox.cn/
+后端接口地址【这个不是接口文档！】：[http://159.75.169.224:1235](http://159.75.169.224:1235/)
 
-开发者工具Vue DevTools：[Vite Plugin | Vue DevTools](https://devtools.vuejs.org/guide/vite-plugin)
+后端接口文档【看接口文档访问这个！】：<https://xsl1e23zpk.apifox.cn/>
+
+vite: <https://vitejs.cn/vite6-cn/guide/>
+
+文件服务器地址：[http://159.75.169.224:1235](http://159.75.169.224:1235/)
+
+Echart 图表库 <https://echarts.apache.org/zh/index.html>
+
+默认知识库封面图 <https://file.itndedu.com/psychology_ai.png>
 
 
 
