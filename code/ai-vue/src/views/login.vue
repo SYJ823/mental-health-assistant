@@ -83,7 +83,8 @@ const submitForm = async (formEL) => {
           //   根据用户角色决定跳转的路径;
           if (data.userInfo.userType === 2) { //如果是管理员
             router.push("/back/dashboard");
-          } else {
+          } else if(data.userInfo.userType === 1) {
+            router.push("/");
           }
         })
         .catch((err) => {

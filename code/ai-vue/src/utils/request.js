@@ -28,21 +28,29 @@ service.interceptors.response.use(
     //对响应数据进行处理
     const { data, config } = response;
     //处理业务状态码
-    if (data.code === '200') {
-      return data.data;
+    if (data.code === "200") {
+      return data.data ?? data;
     } else {
-      //登录过期统一处理逻辑
-      if (data.code === '-1') {//如果业务失败
-        if (!config.url?.includes("/login")) {//如果不是登录接口
-          //清除登录信息
-          localStorage.removeItem("token");
-          //清除用户信息
-          localStorage.removeItem("userInfo");
-          //跳转到登录页
-          window.location.href = "/auth/login";
+      // 登录过期统一处理
+      if (data.code === "-1") {
+        // 白名单：不需要登录的接口（登录、注册、找回密码...）
+        const whiteList = [
+          "/auth/login",
+          "/auth/register",
+        ];
+
+        // 如果当前接口在白名单里，不处理、不跳转
+        if (whiteList.some((item) => config.url.includes(item))) {
+          return Promise.reject(data);
         }
+
+        // 只有非白名单才执行清理 + 跳转
+        localStorage.removeItem("token");
+        localStorage.removeItem("userInfo");
+
+
         return Promise.reject(data);
-      } 
+      }
     }
     return response;
   },

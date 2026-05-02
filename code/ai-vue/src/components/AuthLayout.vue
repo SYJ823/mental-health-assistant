@@ -1,5 +1,4 @@
 <template>
-  首页
   <div class="auth-layout">
     <div class="left-section">
       <div class="content">

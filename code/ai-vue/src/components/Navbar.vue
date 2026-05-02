@@ -27,6 +27,9 @@
 <script setup>
 import { useAdminStore } from '@/stores/admin'
 import { useRouter, useRoute } from 'vue-router'
+import { ElMessageBox } from 'element-plus'
+import { logout } from '@/api/admin'
+
 
 const router = useRouter();
 const route = useRoute();
@@ -38,6 +41,20 @@ const handleCollapse = () => {
 const handleCommand = (command) => {
   if (command === "logout") {
     // 处理退出登录逻辑
+    ElMessageBox.confirm('确定退出登录吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    }).then(() => {
+      //调用接口
+      logout().then(() => {
+        // 清除本地信息
+        localStorage.removeItem('token')
+        localStorage.removeItem('userInfo')
+        // 跳转到登录页
+        router.push({ path: '/auth/login' })
+      })
+    })
   }
 
   console.log(command);

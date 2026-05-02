@@ -2,7 +2,7 @@
 
 ## 20260401 log
 
-##### **搭建环境   node.js、npm、nvm、Trae、element-plus**
+####**搭建环境   node.js、npm、nvm、Trae、element-plus**
 
 - 由于之前下载过其他版本的node.js，故本次需重新安装要求版本的node.js。
 
@@ -29,7 +29,7 @@
 
 ## 20260407 log
 
-##### **配置路由**
+####**配置路由**
 
 - 新拉一个终端 安装vue-router
 
@@ -52,7 +52,7 @@
 
   ​     即刚刚后台顶级路由要渲染的组件BackendLayout
 
-##### layout布局
+####layout布局
 
 - 去Element Plus官网选择合适的layout布局代码粘贴到BackendLayout.vue组件
 
@@ -68,22 +68,22 @@
 
   ​
 
-#### 疑难杂症：
+### 疑难杂症：
 
-##### 删除helloworld后页面报错显示找不到helloworld文件？
+####删除helloworld后页面报错显示找不到helloworld文件？
 
 更改代码后记得ctrl+s保存
 
  /Trae可以设置自动保存 设置-editor-autoSave-afterPlay
 
-##### **router下错位置？**
+####**router下错位置？**
 
 记得在项目package.json（存放核心配置文件）所在的目录下执行命令
 
 ```
 cd xx/xx  //进入指定目录
 ```
-##### **报错不认识@符？**
+####**报错不认识@符？**
 
 方法1.使用相对路径 ..（比较麻烦，要一级一级找）
 
@@ -103,7 +103,7 @@ cd xx/xx  //进入指定目录
 
 ## 20260408 log
 
-##### ***菜单效果实现***   
+####***菜单效果实现***   
 
 - 配置菜单各级要渲染的子路由
 
@@ -136,9 +136,9 @@ cd xx/xx  //进入指定目录
 
 
 
-#### 疑难杂症
+### 疑难杂症
 
-##### 自动格式化代码？
+####自动格式化代码？
 
 安装格式化插件：Pretter -Code formatter
 
@@ -146,52 +146,37 @@ Trae设置-Editor：Default Formatter 选择安装的插件
 
 启动保存时格式化 设置搜索Format On Save 勾选
 
-##### useRoute和useRouter区别？
+#### 不显示图标?
 
-Route  路由数据--->读信息（参数、地址）
+标签写法遗漏 :is
 
-Router  路由工具--->做操作（跳转、返回）
+动态标签component不是属性，要写在<el -icon> </el-icon>标签内部并自闭合 /
 
-| 特性                | `useRoute`                                                | `useRouter`                                          |
-| ------------------- | --------------------------------------------------------- | ---------------------------------------------------- |
-| **作用**            | **获取当前路由信息**（只读）                              | **控制路由行为**（编程式导航）                       |
-| **返回值**          | 当前路由对象（`RouteLocation`）                           | 全局路由实例（`Router`）                             |
-| **常用属性 / 方法** | `route.path`、`route.params`、`route.query`、`route.name` | `router.push()`、`router.replace()`、`router.back()` |
-| **响应式**          | ✅ 是                                                      | ❌ 实例本身不是，但方法可触发路由变化                 |
-| **记忆口诀**        | **Route = 路由数据（看信息）**                            | **Router = 路由工具（做跳转）**                      |
+安装后图标库后还要导入注册接收 到main.js 
 
-- **不显示图标?**
+```
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-  标签写法遗漏 :is
+const app = createApp(App)
 
-  动态标签component不是属性，要写在<el -icon> </el-icon>标签内部并自闭合 /
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}  //全局注册
+```
 
-  安装后图标库后还要导入注册接收 到main.js 
+必须先 `createApp(App)` → 再注册图标 → 最后 `mount`
 
-  ```
-  import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+#### key和index区别？
 
-  const app = createApp(App)
+**key**：给Vue虚拟DOM用，表示每个节点的唯一身份
 
-  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
-    app.component(key, component)
-  }  //全局注册
-  ```
+​	  Vue 官方要求 的循环属性，让 Vue 区分每个菜单项，**避免渲染错乱**
 
-  必须先 `createApp(App)` → 再注册图标 → 最后 `mount`
-
-
-- key和index区别？
-
-  key：给Vue虚拟DOM用，表示每个节点的唯一身份
-
-  ​	  Vue 官方要求 的循环属性，让 Vue 区分每个菜单项，**避免渲染错乱**
-
-  index：Element Plus 菜单属性
+**index**：Element Plus 菜单属性
 
 ## 202604010 log
 
-##### ***菜单显示优化***
+####***菜单显示优化***
 
 布局顶部标签和标题、css样式优化(高度铺满)
 
@@ -201,7 +186,7 @@ Router  路由工具--->做操作（跳转、返回）
 const iconUrl = new URL('@/assets/images/机器人.png', import.meta.url).href
 ```
 
-##### *Navbar导航栏效果实现*
+####*Navbar导航栏效果实现*
 
 - 左右两部分都是flex布局，提前写好flex-box样式并配置div
 - 左边部分包含一个按钮和标题
@@ -226,7 +211,7 @@ const iconUrl = new URL('@/assets/images/机器人.png', import.meta.url).href
 
     - 鼠标移过弹出来的菜单内容必须放在名为` #dropdown` 的插槽里（#号表示v-slot）（第二层）
 
-##### *跳转路由*
+####*跳转路由*
 
 菜单栏设置点击事件
 
@@ -234,7 +219,7 @@ const iconUrl = new URL('@/assets/images/机器人.png', import.meta.url).href
 
 router.push实现路由跳转
 
-##### *PageHead组件封装*
+####*PageHead组件封装*
 
 除数据分析外，其他页面头部都有差不多的部分，把这一部分组件化-PageHead.vue
 
@@ -248,9 +233,9 @@ router.push实现路由跳转
 
 调整CSS样式使其对齐
 
-#### **疑难杂症**
+### **疑难杂症**
 
-##### **为什么要‘引入’图片？**
+####**为什么要‘引入’图片？**
 
 new URL的作用是打包处理本地文件路径，返回可直接用于src的最终URL
 
@@ -258,15 +243,15 @@ new URL的作用是打包处理本地文件路径，返回可直接用于src的�
 
 所以**Vite 里用本地图片：必须包一层 new URL ()**
 
-##### `<el-image>`是什么？
+####`<el-image>`是什么？
 
 Element Plus 提供的图片组件 `<el-image>`，作用和原生 `<img>` 一样，就是在页面上显示一张图片，但功能更强（支持懒加载、加载失败占位、预览等）。
 
-##### **写完下拉菜单报错？**
+####**写完下拉菜单报错？**
 
 用户头像和用户名和图标要写在`<el-dropdown @command="handleCommand">`组件里，即组件的触发区(第一层)
 
-##### **`@click`事件传给函数的`key`是什么参数?**
+####**`@click`事件传给函数的`key`是什么参数?**
 
 我们这里用的是`el-menu-item` 自身绑定的 `@click`事件，参数为菜单单项实例（被 Vue 代理过的 Proxy 对象）里面有index，即一开始传的item.path,这样便拿到了url地址
 
@@ -274,7 +259,7 @@ Element Plus 提供的图片组件 `<el-image>`，作用和原生 `<img>` 一样
 
 如果使用`el-menu`绑定的`@seclet`事件，参数是(index: string, indexPath: string[])
 
-##### primary参数是什么？
+####primary参数是什么？
 
 `<el-button>`的颜色样式按钮，还支持的类型：
 
@@ -292,7 +277,7 @@ Element Plus 提供的图片组件 `<el-image>`，作用和原生 `<img>` 一样
 
 ## 20260414 log
 
-##### *Pinia引入*
+####*Pinia引入*
 
 安装
 
@@ -318,7 +303,7 @@ app.mount('#app')
 
 新建文件admin.js创建后台仓库，引入创建方法、创建、放数据、暴露接口
 
-##### *菜单折叠功能*
+####*菜单折叠功能*
 
 - 给Navebar.vue中
 
@@ -334,7 +319,7 @@ app.mount('#app')
 
 
 
-##### *封装TableSearch组件*
+####*封装TableSearch组件*
 
 多个页面都有表单搜索功能，封装成组件以复用
 
@@ -354,7 +339,7 @@ TableSearch.vue接收所传参数：命名为formItem并规定类型为数组，
 
 
 
-##### *表单栏随屏幕变化响应式布局*
+####*表单栏随屏幕变化响应式布局*
 
 利用 Element Plus (Vue 3) 的 **24 列栅格系统**实现在不同屏幕/浏览器页面大小时，页面布局随之适应的效果。
 
@@ -364,9 +349,9 @@ TableSearch.vue接收所传参数：命名为formItem并规定类型为数组，
 
 
 
-#### 疑难杂症
+### 疑难杂症
 
-##### Pinia、Store是什么？
+####Pinia、Store是什么？
 
 - **Pinia**：Vue 专属的**状态管理工具 / 库**（独立第三方包）。
 
@@ -380,19 +365,19 @@ Pinia提供 `defineStore（）` 方法，用来创建自己的仓库
 
 
 
-##### 为什么Sidebar.vue里的isCollapes要用computed计算属性包围？
+####为什么Sidebar.vue里的isCollapes要用computed计算属性包围？
 
 因为useAdminStore().isCollapse是 **Pinia 里的一个状态值**，**Pinia 的状态变化，**必须通过 **computed 或 storeToRefs** 才能在组件里自动更新视图，否则当Pinia 里的状态变化时，页面不会跟着刷新，computed起到一个**监听作用**
 
 
 
-##### ` :model`是什么？
+####` :model`是什么？
 
 `model` 是 **Element UI 表单（el-form）的核心绑定属性**，专门用来**把表单和数据对象关联起来**。`:model="formData"` 就是让整个表单和 `formData` 对象**双向绑定**
 
 举个例子 当前表单项item接收的prop是叫title，那么最终该标签绑定的是formData.title
 
-##### 为什么定义空的formData对象？
+####为什么定义空的formData对象？
 
 因为：
 
@@ -404,7 +389,7 @@ Pinia提供 `defineStore（）` 方法，用来创建自己的仓库
 
   `reactive({})` 创建一个**响应式空对象 **,`v-model="formData[item.prop]"`自动给这个空对象添加字段属性，不需要提前写死
 
-##### `<el-form-item>`里的:prop参数是干嘛的？
+####`<el-form-item>`里的:prop参数是干嘛的？
 
 `prop` 是 **Element UI 表单校验、数据绑定的关键属性。**
 
@@ -412,7 +397,7 @@ Pinia提供 `defineStore（）` 方法，用来创建自己的仓库
 
 同时他还表明了该条表单项绑定到model里具体哪个数据项
 
-##### v-model="formData[item.prop]"`是什么意思？
+####v-model="formData[item.prop]"`是什么意思？
 
 `formData`：定义的表单数据对象
 
@@ -422,23 +407,23 @@ Pinia提供 `defineStore（）` 方法，用来创建自己的仓库
 
 
 
-##### 表单校验是什么？
+####表单校验是什么？
 
 需要提前写好校验规则rules，`Form` 组件提供了表单验证的功能，只需为 `rules` 属性传入约定的验证规则，并将 `form-Item` 的 `prop` 属性设置为需要验证的特殊键值即可。（传给prop的字段和rules里包含的字段一样，按照规则启动该字段对应的校验）
 
-##### `default: () => []`是干嘛的?
+####`default: () => []`是干嘛的?
 
 default = 默认值，如果父组件没给我传 `formItem`，我就自动用一个空数组 `[]` 代替，防止报错。
 
 
 
-##### 为什么要用 `<template>` 单独包裹 `<el-option>`？
+####为什么要用 `<template>` 单独包裹 `<el-option>`？
 
 `<component>` 是 Vue 的**动态组件标签**,它本质是一个 **“动态占位符”**，**自己本身不能直接写子元素**。所以必须用 `<template> `作为 **“内容插槽容器”**
 
 
 
-##### 如何用自定义事件`@search`实现组件通信的？
+####如何用自定义事件`@search`实现组件通信的？
 
 在父组件调用子组件时，定义事件`search`用于**监听**子组件触发的**同名自定义事件**。`@search="handleSearch"`表示子组件一发 `search` 事件，父组件就立刻执行`handleSearch`方法。然后父组件就可以定义`handleSearch`方法来实现想要的功能了。
 
@@ -448,7 +433,7 @@ default = 默认值，如果父组件没给我传 `formItem`，我就自动用�
 
 
 
-##### `row` 和 `col` 组件的作用各属性的意义？
+####`row` 和 `col` 组件的作用各属性的意义？
 
 - row = 行 → 负责排版、对齐、列间距         
 
@@ -473,7 +458,7 @@ col = 列 → 负责宽度、位置、**响应式**
 
   绑定该属性后组件会**自动检测当前屏幕大小并根据设置的span参数以调整当前列所占份数**
 
-##### 为什么要用computed来增加配置？不能直接循环
+####为什么要用computed来增加配置？不能直接循环
 
 原因：
 
@@ -484,7 +469,7 @@ col = 列 → 负责宽度、位置、**响应式**
 
 最后要return返回计算后的新数组存到新的变量里
 
-##### 补充：computed可修改源头数据的写法：
+####补充：computed可修改源头数据的写法：
 
 ```
 // 计算属性——既读取又修改
@@ -518,7 +503,7 @@ col = 列 → 负责宽度、位置、**响应式**
 8. fullName 变成 `li-si`
 
 
-##### **逐行解析computed内部代码：**
+####**逐行解析computed内部代码：**
 
 ```
 const { formItem } = props;  
@@ -546,7 +531,7 @@ formItem.forEach((item) => {
 ]
 ```
 
-##### 为什么有些属性前必须要加冒号：？
+####为什么有些属性前必须要加冒号：？
 
 冒号是v-bind简写
 
@@ -556,7 +541,7 @@ formItem.forEach((item) => {
 
 
 
-##### v-bind有什么用？
+####v-bind有什么用？
 
 `v-bind` 是 Vue 提供的**「属性绑定工具」**
 
@@ -591,7 +576,7 @@ v-bind="item.col"
 
   把父组件传过来的所有属性，全部丢给当前标签。 一般封装组件才用
 
-##### ***v-bind和v-model的区别和联系？***
+####***v-bind和v-model的区别和联系？***
 
 - **v-bind 只能：数据 → 页面（单向）**
 
@@ -612,7 +597,7 @@ v-bind="item.col"
 
 ## 20260415 log
 
-##### *重置按钮*
+####*重置按钮*
 
 **Element组件库**有写如何实现重置
 
@@ -626,7 +611,7 @@ https://xsl1e23zpk.apifox.cn/
 
 
 
-##### *初始页面Layout布局实现*
+####*初始页面Layout布局实现*
 
 配置初始页面的路由及其两个子路由（注册和登录）
 
@@ -636,7 +621,7 @@ https://xsl1e23zpk.apifox.cn/
 
 
 
-##### *登录页面效果实现*
+####*登录页面效果实现*
 
 标题部分和表单部分
 
@@ -646,7 +631,7 @@ CSS样式调整
 
 
 
-##### *Axios二次封装*
+####*Axios二次封装*
 
 1.安装Axios
 
@@ -660,15 +645,15 @@ npm i axios
 
 
 
-#### 疑难杂症
+### 疑难杂症
 
-##### 初始页面机器人图标不显示？
+####初始页面机器人图标不显示？
 
 经trae排查，路径中@后面少了一个/
 
 
 
-##### 关于异步操作之调用接口
+####关于异步操作之调用接口
 
 - 流程：
 
@@ -688,7 +673,7 @@ npm i axios
 
 
 
-##### 关于网络请求
+####关于网络请求
 
 概念：前端向后端服务器发消息、拿数据的过程
 
@@ -740,14 +725,14 @@ npm i axios
 
 ## 20260416 log
 
-##### *登录接口调用*
+####*登录接口调用*
 
 1. axios封装后统一管理接口：新建api文件夹->后台管理接口admin.js
 2. 接口管理：引入封装后的axios实例->定义登录模块接口函数login->暴露
 3. 页面内调用：引入接口函数，提交表单函数调用接口。
 4. 调用后：判断token是否存在（这里之前**响应拦截器**已经写了对data的剥离，可以直接调用data.token）；登录成功后缓存信息；根据用户角色调整路径...
 
-##### *知识文章分类接口调用*
+####*知识文章分类接口调用*
 
 ​	知识文章分类要根据后台数据渲染，故需调用后台获取分类接口
 
@@ -755,17 +740,17 @@ npm i axios
 
 到`knowledge.vue`组件引入接口函数、建立分类列表、分类映射表-->在onMounted生命周期钩子里执行接口的访问、映射表的建立、接口的调用、对返回数据map处理成新的数组并存在分类列表里-->渲染下拉菜单表单
 
-##### *知识文章页面状态表单完善*
+####*知识文章页面状态表单完善*
 
 ​        死数据直接到表单项数据里加
 
-#### 疑难杂症
+### 疑难杂症
 
-##### validate（）是什么？
+####validate（）是什么？
 
 Element组件库的**表单校验**函数，如果通过校验则继续执行括号里的事件。
 
-##### 关于跨域
+####关于跨域
 
 概念：浏览器出于安全，不让在当前网站，直接请求另一个 “不同源” 网站的接口。（协议、域名、端口任一不一样就会被浏览器拦截报跨域错误）
 
@@ -806,11 +791,11 @@ server: {
 
 
 
-##### **报错login is not defined**
+####**报错login is not defined**
 
 没导入接口函数：`import { login } from '@/api/admin'`
 
-##### **报错service is not defined**
+####**报错service is not defined**
 
 api 文件没导入封装的 axios 实例
 
@@ -820,7 +805,7 @@ api 文件没导入封装的 axios 实例
 
 还有校验规则rules也应该用reactive()
 
-##### 请求接口遇到404错误？
+####请求接口遇到404错误？
 
 经过ai排查发现是封装的service实例的**请求头少了‘/ ’**，导致请求路径会**拼接在当前页面地址后面**
 
@@ -836,17 +821,17 @@ http://localhost:5173/api/admin/login
 
 然后在经过请求转发代理转发到正确后端地址
 
-##### code 500 系统错误？
+####code 500 系统错误？
 
 登录接口地址顺应ai写的`/admin/login`，但是接口文档写了应该是`/user/login `
 
-##### 后端返回的业务状态码code显示200（成功），但是页面登录不成功？
+####后端返回的业务状态码code显示200（成功），但是页面登录不成功？
 
 响应拦截器对状态码的处理：code码是**字符串型**，写的时候顺应ai写成了字符型导致全都处理成了异常
 
 
 
-##### **知识文章分类接口调用为什么要写在onMounted里面？**
+####**知识文章分类接口调用为什么要写在onMounted里面？**
 
 等组件的 DOM 渲染完成、页面挂载成功后，再执行里面的代码。
 
@@ -854,11 +839,11 @@ http://localhost:5173/api/admin/login
 
 组件没挂载就发请求，万一组件销毁了，会造成**内存泄漏 / 无效请求**。
 
-##### 为什么要建立分类映射表？
+####为什么要建立分类映射表？
 
 为了通过 id 快速拿到分类名称，方便表格回显（让下拉框自动选中对应的文字）、编辑回显、数据展示，避免反复遍历数组。
 
-##### map是什么
+####map是什么
 
 把数组里的每一项，加工成新的东西，返回一个新数组。
 
@@ -866,13 +851,13 @@ http://localhost:5173/api/admin/login
 
 ## 20260418 log
 
-##### *知识文章列表接口及调用*
+####*知识文章列表接口及调用*
 
 创建接口：注意该接口参数为Query参数，调用接口时传入params
 
 调用接口：文章组件引入接口，创建分页参数，查询函数内调用接口，声明周期挂载完成时调用查询函数
 
-##### *文章列表显示*
+####*文章列表显示*
 
 使用Element Plus组件库里的Table组件布局
 
@@ -880,9 +865,9 @@ http://localhost:5173/api/admin/login
 
 
 
-#### 疑难杂症
+### 疑难杂症
 
-##### Query参数和params是什么？
+####Query参数和params是什么？
 
 - **query 参数**：URL 问号后面的键值对，**用？& 拼接**，用于**筛选、查询**
 
@@ -907,7 +892,7 @@ https://xxx.com/api/user?name=张三&age=20
 
   ​
 
-##### 扩展运算符`...对象`
+####扩展运算符`...对象`
 
 ```
 const params = {
@@ -922,7 +907,7 @@ const params = {
 
 ## 20260420 log
 
-##### ***文章列表显示完善***
+####***文章列表显示完善***
 
 - 解决分类不显示的问题-变量名写错，要严格按照后端返回的名称
 
@@ -936,11 +921,11 @@ const params = {
 
 ## 20260421 log
 
-##### *分页效果实现*
+####*分页效果实现*
 
 Element plus组件库Pagination 分页组件实现
 
-##### *知识文章新增弹窗*
+####*知识文章新增弹窗*
 
 - 封装成组件`ArticleDialog.vue`
 
@@ -951,15 +936,15 @@ Element plus组件库Pagination 分页组件实现
 
 - 用computed属性将父组件传来的modelValue改为可修改值（利用的是defineEmits进行组件通信，val是新值）
 
-##### *新增弹窗内容布局*
+####*新增弹窗内容布局*
 
 ​	标题、分类、摘要部分、标签布局
 
 > 注意：标签部分要绑定为到数组变量tagArry，不要直接绑定到tags（新增文章接口要求tags是字符串）
 
-#### 疑难杂症
+### 疑难杂症
 
-##### `:page-sizes`和 `:page-size`的区别？
+####`:page-sizes`和 `:page-size`的区别？
 
 - `:page-sizes`:设置分页组件的**「每页显示条数选择器**」的可选数值，用户可以在页面下拉框中切换，选择自己想要的每页展示数量。必须在 **layout 属性里写上 sizes**才生效
 
@@ -969,7 +954,7 @@ Element plus组件库Pagination 分页组件实现
 
   ​
 
-##### `defineProps` 和 `defineEmits` 的区别？
+####`defineProps` 和 `defineEmits` 的区别？
 
 - **defineProps**：**父 → 子 传数据**（父给子发消息）
 
@@ -982,7 +967,7 @@ Element plus组件库Pagination 分页组件实现
 
 
 
-##### 父组件调用子组件时，写v-model的含义？
+####父组件调用子组件时，写v-model的含义？
 
 父组件**同时传数据和事件**
 
@@ -1001,7 +986,7 @@ Element plus组件库Pagination 分页组件实现
 
 子组件要用`defineProps`接收数据，用`defineEmits`声明`update:modelValue`事件
 
-##### 什么是回调？
+####什么是回调？
 
 事情做完后，自动调用的函数。
 
@@ -1024,7 +1009,7 @@ Element plus组件库Pagination 分页组件实现
 
 ## 20260422 log
 
-##### *封面上传效果*
+####*封面上传效果*
 
 Element plus组件库的`<el-upload>`组件实现
 
@@ -1035,7 +1020,7 @@ Element plus组件库的`<el-upload>`组件实现
 5. 上传成功：把后端返回的图片链接赋值给 `imgUrl`；
 6. 页面更新：`imgUrl` 有值 → 自动显示封面预览图。
 
-##### *封面上传接口联调*
+####*封面上传接口联调*
 
 ​	封装接口：根据文档，所需传入参数 有`file`,`businessInfo`，其他为固定值
 
@@ -1049,9 +1034,9 @@ Element plus组件库的`<el-upload>`组件实现
 
 ​	调整样式
 
-#### 疑难杂症
+### 疑难杂症
 
-##### 关于`<el-upload>`组件的属性
+#### 关于`<el-upload>`组件的属性
 
 - `action="#"`  默认上传接口地址,这里写 `#` 是因为我们用 `http-request` 覆盖了默认上传，此属性无效，仅占位
 
@@ -1063,13 +1048,13 @@ Element plus组件库的`<el-upload>`组件实现
 
 
 
-##### `uploadFile`接口里的`FormData`是什么？
+####`uploadFile`接口里的`FormData`是什么？
 
 `FormData` 是浏览器自带的、原生的 JS 构造函数（天生就有，不用装）
 作用：专门用来组装「文件上传」要用的请求数据
 就是一个**数据容器**，专门用来传 文件 + 其他参数 给后端。
 
-##### 为什么要写`headers: {Content-Type: multipart/form-data}`？
+####为什么要写`headers: {Content-Type: multipart/form-data}`？
 
 > Content-Type 是请求头里的**数据格式声明**，用来告诉后端：我这次传给你的数据是什么格式。
 >
@@ -1083,15 +1068,15 @@ Element plus组件库的`<el-upload>`组件实现
 
 
 
-##### 上传图片后返回500？
+####上传图片后返回500？
 
 file没有用{}包裹---**对象解构赋值**。等价于`const file = params.file`(`params`是组件自动传入的整个对象)。后端要的是里面的`file`文件
 
-##### 为什么要额外定义【文件服务器的基础地址】常量？
+####为什么要额外定义【文件服务器的基础地址】常量？
 
 上传完文件后，后端只会返回一个**相对路径**（比如 `/upload/2025/xxx.jpg`，拼接上这个地址，才能变成**完整可访问的图片链接**。额外定义方便整个项目里统一使用。以后服务器换了只需要重新定义访问基础地址（后端只会返回相对路径的原因）。
 
-##### **移除封面按钮没有在图片下方？**
+####**移除封面按钮没有在图片下方？**
 
 少套了一层盒子。`el-form-item` 内部是 弹性布局（flex），上传组件 + 按钮会**默认横向并排**，而不是上下排列
 
@@ -1099,13 +1084,13 @@ file没有用{}包裹---**对象解构赋值**。等价于`const file = params.f
 
 ## 20260424 log
 
-##### ***富文本编辑器***
+####***富文本编辑器***
 
 安装、粘贴打包好的编辑器组件
 
  父组件引入、使用、设置参数并创建相关方法
 
-##### 知识文章创建接口联调
+####知识文章创建接口联调
 
 弹窗底部按钮布局
 
@@ -1115,26 +1100,26 @@ file没有用{}包裹---**对象解构赋值**。等价于`const file = params.f
 
 > 注意标签创建时是数组，要另外拼接成后端接口规定的字符串并删除原数组
 
-#### 疑难杂症
+### 疑难杂症
 
-##### 报错`SyntaxError`?
+####报错`SyntaxError`?
 
 >  Vue 单文件组件（`.vue`）默认是**默认导出**（`export default`）
 
 导入方式（命名导入）与编辑器组件导出方式（默认导入）不匹配。  去掉大括号即可
 
-##### 什么时候引入加大括号，什么时候不加？
+####什么时候引入加大括号，什么时候不加？
 
 -  引入工具函数、配置、枚举 必须带大括号---拿的是其导出的 其中需要的部分
 - 引入Vue组件时不带---一个 .vue 文件 = 一个组件 = 一个默认导出
 
-##### 关于`nextTick`
+####关于`nextTick`
 
 作用：等待 Vue 完成 DOM 更新（异步）
 
 在富文本编辑器初始化完成时使用，表示如果已有旧内容（`formData.content`），就**等 DOM 挂载好**再塞内容进去，防止报错
 
-##### loading参数是什么？
+####loading参数是什么？
 
 `el-button`组件表示加载中的动画显示
 
@@ -1142,7 +1127,7 @@ file没有用{}包裹---**对象解构赋值**。等价于`const file = params.f
 
 ## 20260425 log
 
-##### *编辑弹窗显示*
+####*编辑弹窗显示*
 
 父组件新增按钮和编辑按钮使用同一套函数
 
@@ -1152,7 +1137,7 @@ file没有用{}包裹---**对象解构赋值**。等价于`const file = params.f
 
 子组件接收接口数据时默认定义为null--要根据是否传入id判断状态，并转换为布尔值存在`isEdit`变量里
 
-##### ***编辑弹窗数据回显***
+####***编辑弹窗数据回显***
 
 监听`watch`后端接口返回的文章详情数据
 
@@ -1160,29 +1145,29 @@ file没有用{}包裹---**对象解构赋值**。等价于`const file = params.f
 
 封面回显
 
-##### *取消按钮业务完善*
+####*取消按钮业务完善*
 
 调用表单实例的`resetFields`进行重置，字段简洁且是`vue`自带更安全
 
 重置id（初始值是什么就重置成什么）和封面（调用`handleRemove`)
 
-##### *编辑接口联调*
+####*编辑接口联调*
 
 对于编辑后的文章更新 调用接口 提交数据
 
 由于提交前的校验、拼接逻辑一致，直接在提交函数里加状态判断和更新业务即可
 
-##### *父组件提交文章业务完善*
+####*父组件提交文章业务完善*
 
 关闭弹窗并刷新文章列表
 
-##### *知识文章发布下线删除操作实现*
+####*知识文章发布下线删除操作实现*
 
 调用更新文章状态接口和删除文章接口,`ElmessageBox`弹窗提示（提前引入）
 
 
 
-##### *咨询记录列表组件*
+####*咨询记录列表组件*
 
 调用接口获取咨询会话列表并绑定表格数据
 
@@ -1197,7 +1182,7 @@ file没有用{}包裹---**对象解构赋值**。等价于`const file = params.f
 
 分页效果：复用之前的分页代码，定义相关方法
 
-##### ***咨询记录详情***
+####***咨询记录详情***
 
 弹窗、页面布局、样式
 
@@ -1205,23 +1190,23 @@ file没有用{}包裹---**对象解构赋值**。等价于`const file = params.f
 
 循环渲染对话内容，根据`senderType`判断发消息方
 
-#### 疑难杂症
+### 疑难杂症
 
-##### `isEdit`不生效？
+####`isEdit`不生效？
 
 父组件调用接口后应返回res而不是res.data
 
-##### 先点编辑取消后再点新增数据没有清空？
+####先点编辑取消后再点新增数据没有清空？
 
 如果先点编辑，数据走的是watch字段，表单ref实例还没创建,`resetFields`不生效。
 
 对编辑回显使用`nextTick`即可解决
 
-##### bug：创建文章时未填标签出错
+####bug：创建文章时未填标签出错
 
 标签为非必填项对标签数组进行拼接前进行判断
 
-##### `ElmessageBox`弹窗参数
+####`ElmessageBox`弹窗参数
 
 > `ElMessageBox.confirm(内容, 标题, {配置})`  
 
@@ -1237,33 +1222,33 @@ res不需要.records
 
 用户
 
-##### ID头像不显示？
+####ID头像不显示？
 
 该组件没有`src`属性（智能提示错误），应该用双标签直接包裹用户名
 
-##### 报错多根节点？
+####报错多根节点？
 
 咨询组件没有整个用div包裹，` class="content-container"`不知道该挂在哪个根组件上
 
-##### :close-on-click-modal="false"？
+####:close-on-click-modal="false"？
 
 作用：点击弹窗外的灰色遮罩时，不关闭弹窗。
 
-##### v-loading="loadingMessages"？
+####v-loading="loadingMessages"？
 
 作用：给区域加 “加载中” 转圈动画。
 
-##### 样式不生效?
+####样式不生效?
 
 样式类名不匹配和嵌套结构错误
 
 
 
-##### 接口要求的情绪参数怎么获得？
+####接口要求的情绪参数怎么获得？
 
 可选项可不写，传分页数据和表单数据即可
 
-##### 评分的星星效果怎么实现？
+####评分的星星效果怎么实现？
 
 Element组件：
 
@@ -1273,7 +1258,7 @@ Element组件：
 
 ## 20260426 log
 
-##### *情绪日志详情和删除功能*
+####*情绪日志详情和删除功能*
 
 详情弹窗：
 
@@ -1285,25 +1270,29 @@ Element组件：
 
 调用接口、弹窗提示
 
-##### *数据分析组件业务*
+####*数据分析组件业务*
 
 `<el-card>`和`Layout`栅格布局实现卡片效果和屏幕自适应
 
 echarts实现趋势图表
 
-导航守卫
+####*导航文字区域*
 
-登出逻辑
+跳转不同的路由组件时，Navbar区域对应改变：
 
-#### 疑难杂症
+使用useRoute（）方法创建**当前路由实例**`route`，拿到当前路由的`.meta.title`,放到对应要渲染的组件位置
 
-##### 为什么要把row重新赋值给另一个变量？
+
+
+### 疑难杂症
+
+####为什么要把row重新赋值给另一个变量？
 
 `currentDetail` 是 “专门用来存当前详情数据” 的响应式变量，而 `row` 只是临时参数
 
 一个变量只干一件事，代码更容易维护
 
-##### 什么是JSON字符串？要怎么处理？
+####什么是JSON字符串？要怎么处理？
 
 > 后端数据库存复杂数据时，不能直接存对象，只能存文本，所以会把对象转成 **JSON 字符串** 存起来
 
@@ -1311,11 +1300,11 @@ echarts实现趋势图表
 
 
 
-##### 图片不显示？
+####图片不显示？
 
 没有用`new URL()`进行打包转换，无法识别
 
-##### 页面刷新报错undefinde 不加载?
+####页面刷新报错undefinde 不加载?
 
 原代码定义aiData为空对+ 模板直接读深层属性 + 没做容错导致aiData还没拿到数据就渲染了
 
@@ -1327,7 +1316,7 @@ aiData?.systemOverview?.totalUsers || 0
 
 
 
-##### 如何实现分析趋势图表?
+####如何实现分析趋势图表?
 
 使用**Apache ECharts**--一个基于 JavaScript 的开源可视化图表库
 
@@ -1337,13 +1326,13 @@ Echart 图表库 https://echarts.apache.org/zh/index.html
 
 （我们这里用的el组件，DOM对象就是组件绑定的ref对象）
 
-##### 卡片不在一行显示？
+####卡片不在一行显示？
 
 第二个卡片没有单独放一个`<el-col>`
 
 
 
-##### useRoute 和useRouter的区别？
+####useRoute 和useRouter的区别？
 
 先从底层理解Vue-Router的工作原理：
 
@@ -1390,4 +1379,620 @@ router.push() → 调用 history → 修改 URL → 触发更新
 | 对应 Vue2 | `this.$route`                 | `this.$router`               |
 | 响应式    | ✅ 是                          | ❌ 不是                       |
 | 典型场景  | 详情页拿 id、权限判断         | 登录后跳转、返回按钮、条件跳 |
+
+## 20260427 log
+
+####*登出逻辑*
+
+弹窗提示 ElMessageBox
+
+调用登出接口
+
+清除浏览器localStorage里的用户信息userInfo和token
+
+跳转路由到登录页面
+
+####*业务实现：已登录后台账号情况下访问 /back 时自动访问到子路由 /back/dashboard*
+
+back路由配置：`redirect: '/back/dashboard'`
+
+***路由前置守卫***
+
+> 手动输入URL，页面跳转之前做的事情
+
+判断登录状态还是未登录状态：是否有token
+
+- 如果是未登录
+  - 想要访问后台系统/back --->跳转到登录页面
+  - 首页正常访问
+
+
+- 如果是已登录 ---->判断登录用户类型：通过token.userType判断
+  - 如果是后台用户（只能访问后台相关的路由）
+    - 想要访问含有/back的路由--->正常访问
+    - 访问其他路由--->也要跳转到后台首页/back/dashboard
+  - 如果是前台用户（只能访问前台相关的路由）
+    - 想要访问/back或者登录页面/login--->跳转回首页
+    - 其他 --->正常访问
+
+
+
+####*用户端 layout布局实现和路由实现*
+
+- 前台路由：根路径"/"对应前台首页组件`FrontendLayout.vue`
+
+路由实例使用扩展运算符将前台路由和后台路由合并
+
+定义前台相关子路由
+
+- layout布局：分为上中下三个部分
+
+根据权限的不同顶部菜单栏的内容有所不同：`v-if`判断不同登录状态下组件是否展示
+
+通过`<router-link>`实现导航菜单栏不同路由组件的跳转
+
+中间内容就是访问子路由需要展示的部分：`< router-view>`实现
+
+底部文案
+
+
+
+####*官网首页静态页面*
+
+在home.vue组件进行布局   flex布局
+
+####*注册页面编写*
+
+
+
+### 疑难杂症
+
+#### vue的意义和作用？ 
+
+​	**封装底层 DOM 操作**，让你不用手动获取 / 修改页面元素；
+
+​	**数据驱动视图**，数据变页面自动更新；
+
+​	**组件化开发**，页面拆成独立可复用的模块（像搭积木）；
+
+​	**自动管理事件、通信、渲染**，只关注业务逻辑，开发更高效。
+
+例如：原生JS  需要手动操作 DOM，全是底层繁琐代码
+
+```
+<div id="text">默认文字</div>
+<button id="btn">点击修改</button>
+
+<script>
+  // 1. 手动获取DOM元素
+  const textDom = document.getElementById('text')
+  const btn = document.getElementById('btn')
+
+  // 2. 手动绑定点击事件
+  btn.addEventListener('click', () => {
+    // 3. 手动修改页面内容
+    textDom.innerText = '文字被修改了'
+  })
+</script>
+```
+
+vue写法 只改数据，完全不碰 DOM
+
+```
+<template>
+  <div>{{ msg }}</div>
+  <button @click="changeText">点击修改</button>
+</template>
+
+<script setup>
+import { ref } from 'vue'
+// 只定义数据
+const msg = ref('默认文字')
+
+// 只写业务逻辑
+const changeText = () => {
+  msg.value = '文字被修改了'
+}
+</script>
+```
+
+
+
+#### 下拉菜单组件`<el-dropdown>`和`<el-dropdown-item>`之间**command** 事件的底层原理？
+
+​	**关系**：`<el-dropdown>` 是**父组件标签**，`<el-dropdown-item>` 是**子组件标签**；
+
+​	**流程**：背后 Vue + ElementPlus 做的底层操作
+
+1. 识别自定义标签，找到对应组件源码.vue组件
+
+2. 给子项绑定原生 `click` 点击事件
+
+3. 子组件通过` defineProps`接收 `command` 属性值（比如绑的`layout`等等）
+
+   ```
+   const props = defineProps({
+     command: [String, Number, Object] // 
+   })
+   ```
+
+4. 子组件听到原生点击后，触发方法并通过底层 `emit` 派发`item-click`事件和`command`数据给父组件
+
+   ```
+    <div @click="onDivClick">
+       <slot />
+    </div> 
+    
+   const onDivClick = () => {
+     // ② 子组件内部：触发 自定义事件 item-click，把 command 传给父
+     emit('item-click', props.command)
+   }
+   ```
+
+5. 父组件监听到子的 `item-click`事件、重新包装成command事件抛给我们的组件
+
+   ```
+   <template>
+     <!-- 关键：插槽直接监听 子的 item-click -->
+     <slot @item-click="receiveItemClick"></slot>
+   </template>
+
+   <script setup>
+   // 对外暴露：command 事件（给开发者用）
+   const emit = defineEmits(['command'])
+
+   // ③ 父接住子的 item-click和抛出来的数据
+   const receiveItemClick = (cmd) => {
+     // 父转发，改名成 command 抛出去
+     emit('command', cmd)
+   }
+   </script>
+   ```
+
+6. 把 `logout` 传给 `fn` 函数
+
+7. 自动处理下拉收起、样式、DOM 更新
+
+
+
+####  登出调用接口返回系统错误？
+
+排查过程：复制标头里的token信息到接口文档测试，观察到操作成功说明接口没有问题，观察文档里的标头，看到是post请求，返回接口文件发现写的是get请求，修改后响应正常
+
+
+
+#### 控制台报错：vue-router.mjs:643 Uncaught TypeError: Cannot read properties of undefined (reading '0') ？
+
+前台根路由的子路由还没有数据时，不要带{}。
+
+
+
+#### trigger: "blur"是什么意思？
+
+Element Plus 表单校验，`blur`：在输入框**失去焦点**时触发校验（如点击空白处、Tab 切走、按回车。
+
+` "change"`：**值变即校验**（适合下拉 / 单选 / 开关）
+
+
+
+#### **const** router = useRouter();为什么要这样拿到全局实例，而不直接用export default router;里的router？
+
+`useRouter()` 是**运行时获取**，能拿到**当前最新、最正确**的全局路由实例
+
+`import router` 是**编译时就确定**的静态对象,直接导入很容易 出现**拿不到当前路由、跳转失效**等问题。
+
+Vue 官方明确规定：
+
+> **组合式 API 中获取路由实例，必须使用 useRouter () /useRoute ()**
+
+
+
+#### 为什么函数 submitFormRef（）的参数 和 const submitFormRef = ref(null)不能 重名
+
+**函数参数本质就是声明变量**，JS/ES6 不允许**同一个作用域内声明同名变量**
+
+
+
+#### 注册逻辑-调用接口后的处理频繁出错？
+
+在未知后端接口返回的结果时可以先打印出res返回结果，试一下不同情况的返回情况；或者去接口文档运行调试。随后再根据结果进行逻辑判断。
+
+本次项目注册接口 成功是直接返回data里的内容，所以无法再解构data，观察发现注册成功会返回id，所以可以解构id，判断是否有id写注册成功后的逻辑：弹窗提醒和路由跳转。而注册失败则会返回data信息，里面包含失败的原因，可以进行打印。
+
+#### bug修复：响应拦截器对登录过期的统一处理
+
+另外，封装的响应拦截器有逻辑错误：对于登录过期的处理：返回code=-1时统一认为是登录过期并直接跳转登录接口。实际上在注册等不需要登录的页面可能是注册失败等其他原因，不能统一处理成跳转到登录页面
+
+如何解决？：**设置白名单**
+
+```
+const whiteList = [
+          "/auth/login",
+          "/auth/register",
+        ];
+ // 如果当前接口在白名单里，不处理、不跳转
+        if (whiteList.some((item) => config.url.includes(item))) {
+          return Promise.reject(data);
+        }
+```
+
+
+
+## 20260428 log
+
+#### *用户首页退出登录逻辑*
+
+调用接口、清除缓存、跳转到登录路由
+
+#### *登录逻辑完善*
+
+对于普通前台用户，登录成功后跳转到前台首页
+
+#### *AI咨询布局页面实现*
+
+新建会话按钮设置点击事件`const createFrontendSession = () => {}`，在页面首次加载以及点击加号按钮创建新对话时都需要创建一个新的对话信息数据对象`newSession`，内容包括：
+
+- 会话id、状态、标题等  
+- 会话id要唯一：使用**时间戳**来定义id(由于是临时数据，可以加一个temp_前缀)
+
+因为会有多个会话，还要定义一个当前会话对象`currentSession`
+
+欢迎语是没开始对话前展示的，根据对话的特点，建立`message`数组储存对话信息，根据数组长度是否为零决定展示
+
+发送按钮禁用：根据后台端口ai是否正在回复设置禁用：`:disabled`
+
+按下`enter`发送功能实现：定义`keydown`事件 监听enter键是否按下，然后调用后端接口
+
+定义用户发送事件`sendMessage`：
+
+- 如果是临时会话（没有会话记录）：则调用创建新对话的函数`startNewSession()`
+
+定义`startNewSession(){}`:
+
+- `const sessionParams` 接口要求的两个参数 ：消息---就是用户对话框数据       标题：AI心理助手+时间
+- 调用创建新会话的接口：对返回的数据转为前端格式、关系当前对话数据
+
+##### 会话列表布局
+
+- 创建列表变量`sessionList`
+
+- 定义获取分页咨询会话列表方法`getSessionList()`、调用接口
+
+- 方法使用时机：创建新会话后调用、页面挂载时调用
+
+- 页面组件布局：添加点击事件获取会话详细消息
+
+- 定义获取会话详细消息方法`handleSessionClick()`、调用接口
+
+  ​
+
+### 疑难杂症
+
+#### userMessage.value.trim()是什么意思
+
+去除空格
+
+#### 什么是临时会话，为什么要创建临时会话
+
+页面刚加载和刚刚创建的新会话。只有前端有数据，还没有存到后端的对话
+
+#### 发送消息后没有反应？
+
+排查过程发现：打印sessionParams无数据？说明该变量没有拿到数据，往前继续排查，调用创建新会话函数的条件是currentSession.value.status === 'TEMP'，而在创建新会话时currentSession的值由newSession提供：
+
+newSession定义成了ref 对象，但把它赋值给了 currentSession.value。**Vue 会自动将 `newSession` 包装成响应式对象**，最终变成变成 ref 嵌套 ref；实际应该直接用普通对象{}定义、
+
+#### 打印startSession接口的res无数据？
+
+判断条件是res.code==='200',但是拦截器已经把 `res` 直接变成了内部 `data` 对象，里面没有code了。
+
+
+
+## 20260429 log
+
+#### *会话列表删除功能*
+
+设置按钮点击事件、调用接口
+
+#### *列表对话消息显示*
+
+对会话历史栏的每个会话设置点击事件：`handleSessionClick()`，调用接口，将返回数据（对话数组）保存
+
+页面组件渲染对话数据  
+
+> 注意样式的层级，每条消息根据发送者的类型对应不同的两种选择器，要在v-for时就进行判断并渲染
+
+AI错误提示：如果访问大模型过程中出现错误要将错误信息进行展示
+
+对于AI消息，要根据是否在输入中决定其展示效果，且对于返回的消息，还要对其格式进行加工（`MarkdownRenderer.vue`组件：一个**轻量级的前端Markdown渲染器**，主要用于将AI大模型返回的Markdown格式文本转换为HTML并在页面上展示）
+
+对于用户消息，也要定义方法对其换行处理
+
+#### *输入框底部功能完善*
+
+给发送按钮添加不可用的条件：为空或者字数超过500
+
+#### *获取会话详情方法完善*
+
+获取到详情数据后还要进行处理（主要是sessionId的处理），更新`currentSession`数据
+
+#### *AI流式对话实现*
+
+定义流式会话方法`startAIresponse()`
+
+​	防重复发送处理
+
+​	新建消息数据，还没拿到后台数据，设置默认数值
+
+​	**安装并引入引入Fetch Event Source库**
+
+```
+npm i @microsoft/fetch-event-source
+```
+
+​	调用库和接口
+
+### 疑难杂症
+
+#### 解决潜在问题：创建后台新会话方法`startNewSession`中的**异步时序问题**
+
+调用接口后需要更新会话列表,`getSessionPage()` 在异步回调外部，会在接口返回前就执行，导致新会话可能还没添加到列表。更改`getSessionPage()`执行位置到回调内部
+
+#### CSS语句解释
+
+```
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: #ccc;
+    border-radius: 50%;
+    animation: typing 1.5s ease-in-out infinite;
+    
+    // 第2个点延迟0.2秒
+    &:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    // 第3个点延迟0.4秒
+    &:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+  }
+```
+
+`&` 符号：代表**父级选择器**，在这里指向 `.typing-dot`
+
+ `animation-delay`: 0.2s;：**延迟**0.2s
+
+三个点**依次出现**，形成打字动画效果
+
+
+
+#### v-else-if使用报错
+
+`v-else-if` 必须**紧跟在** `v-if` 或另一个 `v-else-if` 之后，不能单独使用
+
+一开始跟在`v-else`后面所以报错
+
+#### toISOString()？
+
+JavaScript 日期对象的一个方法，用于将日期转换为 ISO 8601 格式的字符串。
+
+| 方法               | 输出示例                            | 时区 |
+| ------------------ | ----------------------------------- | ---- |
+| `toISOString()`    | `2026-04-29T08:30:15.123Z`          | UTC  |
+| `toUTCString()`    | `Wed, 29 Apr 2026 08:30:15 GMT`     | UTC  |
+| `toLocaleString()` | `2026/4/29 16:30:15`                | 本地 |
+| `toString()`       | `Wed Apr 29 2026 16:30:15 GMT+0800` | 本地 |
+
+
+
+#### 关于流式接口
+
+流式接口本质：**HTTP 长连接 + 分段流输出**   	核心价值在于**让用户感知到的等待时间变短**。
+
+| 特性     | 普通接口（短连接）            | 流式 SSE 接口（长连接）         |
+| -------- | ----------------------------- | ------------------------------- |
+| 数据返回 | 全部生成完，一次性返回        | 边生成、边分段返回              |
+| 连接方式 | 单次请求 + 单次响应，立刻断开 | 一次请求，持续响应，长连接保持  |
+| 通信方向 | 单次问答                      | **后端单向推送**                |
+| 响应格式 | 普通 JSON                     | 固定 SSE 格式：`data: 内容\n\n` |
+| 渲染体验 | 等待全部数据，卡顿感强        | 分段渲染，打字机实时效果        |
+| 资源消耗 | 短时占用                      | 长时占用，支持手动中断释放      |
+| 适用场景 | 查列表、详情、提交表单        | AI 对话、实时进度、日志推送     |
+
+| 处理方式                  | 支持 POST/Body | 自定义 Header (Token) | 可手动中断     | 内置 SSE 解析                | 优缺点 & 适用场景                                            |
+| ------------------------- | -------------- | --------------------- | -------------- | ---------------------------- | ------------------------------------------------------------ |
+| 原生 `EventSource`        | ❌ 仅 GET       | ❌ 不可自定义          | ❌ 无法优雅终止 | ✅ 自带解析                   | 优点：原生零依赖缺点：功能残缺，**AI 项目基本不用**          |
+| 原生 `fetch` + 手动解析流 | ✅              | ✅                     | ✅              | ❌ 需自己切割、处理粘包、格式 | 优点：无第三方库缺点：代码复杂、易出 Bug                     |
+| **fetch-event-source**    | ✅              | ✅                     | ✅              | ✅ 开箱即用                   | 优点：兼顾灵活 + 流式解析，适配 AI 流式接口定位：**企业级项目首选** |
+
+**Fetch Event Source**（常写作 fetch-event-source，官方包名 @microsoft/fetch-event-source）是**微软开源**的 **JavaScript 库**，用来替代浏览器原生 EventSource，基于 fetch API 实现 SSE（Server-Sent Events，服务器发送事件）长连接流式接收数据。简单说：**就是能发 POST、带 Token、可控中断的增强版 EventSource**，最常见用途是 AI 对话流式输出、实时通知、日志推送。
+
+
+
+## 20260502 log
+
+#### *AI流式对话实现(续 )*
+
+接口处理
+
+发送消息方法完善：现有会话追加对话
+
+修复问题若干
+
+#### *聊天页面时刻保持最新对话效果实现*
+
+对话列表最底部放一个空的 `div`（锚点）
+
+每次消息更新后，自动让这个锚点滚动到可视区域
+
+
+
+#### 情绪花园模块
+
+格式布局，渲染数据
+
+调用接口：确保sessionId以’session_’开头
+
+点击会话详情时和ai消息回复完成时调用获取情绪的方法
+
+
+
+#### *情绪日记页面实现*
+
+格式布局，渲染数据，调用接口
+
+#### *知识库列表页实现*
+
+
+
+### 疑难杂症
+
+#### 问题修复：发送消息没有AI回复
+
+逻辑错误：发送消息方法里不应该将变量`isAiTyping`设置为true，会导致已进入ai流式会话方法就返回了，应该等进入流式会话后再设置为true，回复完成设置为false
+
+#### 问题修复：ai一回复完就报错：‘AI回复失败’
+
+观察控制台网络接口发现接口没有问题，正常回复；怀疑是回复完成时的处理有问题，在`event.eventName==='200'`处设置打印’回复完成‘。发现并没有进入该逻辑判断导致直接进入报错。再次往前排查打印`raw`和`event`发现：event里并没有`eventName`变量，而是`event.event`显示’done‘。故更改判断逻辑修复问题
+
+#### **ai回复的消息是怎么渲染到页面的？**
+
+1. **先创建一条空的 AI 消息，放进消息列表**
+
+```
+const aiMessage = { content: "", senderType:2 }
+messages.value.push(aiMessage)
+```
+
+- 这一步：**在页面上先占一个气泡位置**
+- 页面立刻渲染出一个空的 AI 消息框
+
+2. **拿到这条消息的 “引用”**
+
+```
+const aiMessage = messages.value[messages.value.length - 1]
+```
+
+- 不是新建消息
+- 只是**指向列表里最后那一条 AI 消息**
+- **const**：锁死变量指向，不锁内容修改
+
+3. **流式接收数据，不断追加内容**
+
+```
+aiMessage.content += payload.data.content
+```
+
+- 因为 `messages` 是 **Vue 响应式数组**
+- 里面的对象也是响应式的
+- **只需要改 content**，Vue 会**自动更新页面**
+
+4. **页面自动渲染**
+
+页面上的：
+
+```
+{{ msg.content }}
+```
+
+会**实时跟着变** → 形成**打字机效果**
+
+#### 问题修复：ai消息时间显示有误
+
+新的ai消息回复时所有回复过的消息的时间也显示正在输入中
+
+补充  `index === messages.length - 1`
+
+```
+：v-for="(msg, index) in messages"
+
+<div class="message-time">
+            {{
+                msg.senderType === 2 && isAiTyping && index === messages.length - 1
+                ? "正在输入中..."
+                : msg.createdAt             }}
+          </div>
+```
+
+#### 如何实现聊天页面时刻保持最新对话效果？
+
+1. 消息循环的底部加空盒子：
+
+   ```
+   <!-- 消息循环 -->
+   <div v-for="(item, index) in messages" :key="index" class="message">
+     {{ item.content }}
+   </div>
+
+   <!-- 底部锚点 ← 就加这一行 -->
+   <div ref="msgEnd"></div>
+   ```
+
+
+   ```
+
+2. 引入
+
+   ```
+   import { ref, nextTick } from 'vue'
+
+   const msgEnd = ref(null)
+   ```
+
+3. script加
+
+   ```
+   // 自动滚动到最新消息
+   function scrollToBottom() {
+     nextTick(() => {
+       const el = msgEnd.value
+       if (el) {
+         el.scrollIntoView({ behavior: 'smooth' })
+       }
+     })
+   }
+
+   ```
+
+4. 发送消息和获取对话详情方法最后都调用上面的方法即可实现丝滑滚动到底部
+
+#### nextTick 底层作用
+
+Vue 是异步 DOM 更新
+
+等待 **下一次 DOM 渲染完成后** 再执行代码
+
+
+
+#### 如何根据分数动态渲染小圆点个数？
+
+   ```
+<span class="dot" v-for="dot in 3" :key="dot" :class="{'active': getIntensityClass(currentEmotion.emotionScore) >= dot}"></span>
+
+//映射情绪强度
+const getIntensityClass = (score) => {
+  if(score >= 61){
+    return 3;
+  }
+  else if(score >= 31){
+    return 2;
+  }
+  return 1;
+}
+```
+通过添加映射分数-个数关系，循环渲染小圆点及其动态类
+
+```
+
+
+
+#### 获取文章详情时路由路径id获取失败？
+
+id是动态路由，定义路由规则时要配置为可由props定义，且字段要和后台接口规则一致
+
+```
+props：true
+```
 
