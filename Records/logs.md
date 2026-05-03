@@ -174,7 +174,7 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 **index**：Element Plus 菜单属性
 
-## 202604010 log
+## 20260410 log
 
 ####***菜单显示优化***
 
@@ -1996,3 +1996,19 @@ id是动态路由，定义路由规则时要配置为可由props定义，且字�
 props：true
 ```
 
+
+
+## 20260503 log
+
+#### *问题修复：*
+
+##### 1.注册页内容溢出修复
+
+- align-items: flex-start - 内容从顶部开始排列，不再强制居中
+- overflow-y: auto - 内容溢出时允许滚动
+- 减小表单间距 - 减少表单项间距 ( 18px ) 和按钮上边距 ( 30px )
+- 减小 footer padding - 30px → 20px
+
+##### 2.登录页返回首页逻辑完善
+
+​	点击时ti

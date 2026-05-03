@@ -4,6 +4,10 @@ export function login(data) {
     return service.post('/user/login',data)
 } 
 
+export function register(data) {
+    return service.post('/user/add',data)
+}
+
 export function categoryTree() {
     return service.get('/knowledge/category/tree')
 }

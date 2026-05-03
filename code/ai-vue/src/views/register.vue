@@ -1,71 +1,72 @@
 <template>
-  <div class="container">
-    <div class="flex-box"></div>
-    <div class="title">
-      <div class="title-text">
-        <h2>创建您的账户</h2>
-        <p>请填写注册信息</p>
+  <div class="register-wrapper">
+    <div class="container">
+      <div class="title">
+        <div class="title-text">
+          <h2>创建您的账户</h2>
+          <p>请填写注册信息</p>
+        </div>
       </div>
-    </div>
-    <div class="form-container">
-      <el-form
-        :model="formData"
-        :rules="rules"
-        ref="submitFormRef"
-        label-position="top"
-      >
-        <el-form-item label="用户名和邮箱" prop="username">
-          <el-input
-            v-model="formData.username"
-            size="large"
-            placeholder="请输入用户名或邮箱"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input
-            v-model="formData.email"
-            size="large"
-            placeholder="请输入邮箱"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="昵称" prop="nickname">
-          <el-input
-            v-model="formData.nickname"
-            size="large"
-            placeholder="请输入昵称（可选）"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="手机号" prop="phone">
-          <el-input
-            v-model="formData.phone"
-            size="large"
-            placeholder="请输入手机号（可选）"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input
-            v-model="formData.password"
-            size="large"
-            placeholder="请输入密码"
-            type="password"
-            show-password
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input
-            v-model="formData.confirmPassword"
-            size="large"
-            placeholder="请确认密码"
-            type="password"
-            show-password
-          ></el-input>
-        </el-form-item>
-      </el-form>
-      <el-button class="btn" type="primary" @click="submitForm(submitFormRef)"
-        >创建用户</el-button
-      >
-      <div class="footer">
-        <p>还没有账号？<router-link to="/auth/login">去登录</router-link></p>
+      <div class="form-container">
+        <el-form
+          :model="formData"
+          :rules="rules"
+          ref="submitFormRef"
+          label-position="top"
+        >
+          <el-form-item label="用户名和邮箱" prop="username">
+            <el-input
+              v-model="formData.username"
+              size="large"
+              placeholder="请输入用户名或邮箱"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-input
+              v-model="formData.email"
+              size="large"
+              placeholder="请输入邮箱"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="昵称" prop="nickname">
+            <el-input
+              v-model="formData.nickname"
+              size="large"
+              placeholder="请输入昵称（可选）"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="手机号" prop="phone">
+            <el-input
+              v-model="formData.phone"
+              size="large"
+              placeholder="请输入手机号（可选）"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input
+              v-model="formData.password"
+              size="large"
+              placeholder="请输入密码"
+              type="password"
+              show-password
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="confirmPassword">
+            <el-input
+              v-model="formData.confirmPassword"
+              size="large"
+              placeholder="请确认密码"
+              type="password"
+              show-password
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <el-button class="btn" type="primary" @click="submitForm(submitFormRef)"
+          >创建用户</el-button
+        >
+        <div class="footer">
+          <p>还没有账号？<router-link to="/auth/login">去登录</router-link></p>
+        </div>
       </div>
     </div>
   </div>
@@ -107,32 +108,38 @@ const submitForm = async (formEl) => {
   formEl.validate((valid) => {
     if (valid) {
       // 注册请求
-      register(formData)
-        .then((res) => {
-            console.log("真实接口返回：", res);
-          // 不直接解构，避免无data时报错
-          const { id,data } = res || {};
-          if (id) {
-            // 注册成功
-            ElMessage.success("注册成功");
-            router.push("/auth/login");
-          } else {
-            // 安全获取错误信息
-            const errMsg = data?.message || "注册失败，请稍后重试";
-            ElMessage.error(errMsg);
-          }
-        })
+      register(formData).then((res) => {
+        console.log("真实接口返回：", res);
+        // 不直接解构，避免无data时报错
+        const { id, data } = res || {};
+        if (id) {
+          // 注册成功
+          ElMessage.success("注册成功");
+          router.push("/auth/login");
+        } else {
+          // 安全获取错误信息
+          const errMsg = data?.message || "注册失败，请稍后重试";
+          ElMessage.error(errMsg);
+        }
+      });
     }
   });
 };
 </script>
 <style scoped lang="scss">
+.register-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
 .container {
-  width: 384px;
-  .flex-box {
-    display: flex;
-    align-items: center;
-  }
+  width: 100%;
+  max-width: 384px;
   .title {
     .title-text {
       text-align: center;
@@ -148,12 +155,21 @@ const submitForm = async (formEl) => {
   }
   .form-container {
     margin-top: 30px;
+    :deep(.el-form-item) {
+      margin-bottom: 18px;
+    }
+    :deep(.el-input) {
+      .el-input__wrapper {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+    }
     .btn {
-      margin-top: 40px;
+      margin-top: 30px;
       width: 100%;
     }
     .footer {
-      padding: 30px;
+      padding: 20px;
       text-align: center;
     }
   }

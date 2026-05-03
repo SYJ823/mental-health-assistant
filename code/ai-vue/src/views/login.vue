@@ -3,7 +3,7 @@
     <div class="title">
       <div class="back-home">
         <el-icon><Back /></el-icon>
-        <span>返回首页</span>
+        <span @click="router.push('/')" style="cursor: pointer">返回首页</span>
       </div>
       <div class="title-text">
         <h2>登陆您的账户</h2>
