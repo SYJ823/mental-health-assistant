@@ -15,6 +15,18 @@
 | 情绪日记 | 情绪评分、主导情绪、触发因素与日记正文；睡眠与压力等维度提交 |
 | 知识库 | 文章分页列表、推荐阅读、文章详情 |
 
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191017.png)
+
+![幕截图 2026-05-03 19105](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191057.png)
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191114.png)
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191337.png)
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191350.png)
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191131.png)
+
 ### 管理端（`/back`，管理员）
 
 | 模块 | 说明 |
@@ -23,6 +35,14 @@
 | 知识文章 | 分类、分页检索、新增/编辑（富文本 + 封面上传）、发布/下线/删除 |
 | 咨询记录 | 会话列表与详情对话展示 |
 | 情绪日志 | 用户情绪日记分页与详情、删除 |
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191146.png)
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191159.png)
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191211.png)
+
+![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191222.png)
 
 ### 认证
 
