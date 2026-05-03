@@ -15,17 +15,6 @@
 | 情绪日记 | 情绪评分、主导情绪、触发因素与日记正文；睡眠与压力等维度提交 |
 | 知识库 | 文章分页列表、推荐阅读、文章详情 |
 
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191017.png)
-
-![幕截图 2026-05-03 19105](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191057.png)
-
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191114.png)
-
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191337.png)
-
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191350.png)
-
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191131.png)
 
 ### 管理端（`/back`，管理员）
 
@@ -36,13 +25,27 @@
 | 咨询记录 | 会话列表与详情对话展示 |
 | 情绪日志 | 用户情绪日记分页与详情、删除 |
 
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191146.png)
 
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191159.png)
+<img width="2762" height="1477" alt="屏幕截图 2026-05-03 191017" src="https://github.com/user-attachments/assets/3617c5db-10f7-4c10-b1d7-a5691a01a29e" />
 
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191211.png)
+<img width="2774" height="1472" alt="屏幕截图 2026-05-03 191057" src="https://github.com/user-attachments/assets/570c403a-767d-4119-bde9-13e44f69097f" />
 
-![](C:\Users\sunyo\Pictures\Screenshots\屏幕截图 2026-05-03 191222.png)
+<img width="2755" height="1465" alt="屏幕截图 2026-05-03 191114" src="https://github.com/user-attachments/assets/eb1f4575-aad3-4210-8fa8-d33889f03556" />
+
+<img width="2732" height="1478" alt="屏幕截图 2026-05-03 191337" src="https://github.com/user-attachments/assets/747ae8d3-d6ee-49c1-9d8e-9b071bb5f802" />
+
+<img width="2724" height="1454" alt="屏幕截图 2026-05-03 191350" src="https://github.com/user-attachments/assets/a3175794-d4b5-4393-8da6-3a70c900f7e7" />
+
+<img width="2758" height="1453" alt="屏幕截图 2026-05-03 191131" src="https://github.com/user-attachments/assets/88eb1418-39a9-4073-bf68-59bae89e22dd" />
+
+<img width="2754" height="1463" alt="屏幕截图 2026-05-03 191146" src="https://github.com/user-attachments/assets/d6b2211c-db74-4e00-b317-8e60ec09a2ff" />
+
+<img width="2747" height="1456" alt="屏幕截图 2026-05-03 191159" src="https://github.com/user-attachments/assets/5ae387c1-51ef-4727-ac57-59b8e2352f79" />
+
+<img width="2754" height="1456" alt="屏幕截图 2026-05-03 191211" src="https://github.com/user-attachments/assets/16138fc1-1470-4dab-a59f-d0e0e8be752e" />
+
+<img width="2766" height="1470" alt="屏幕截图 2026-05-03 191222" src="https://github.com/user-attachments/assets/0d80ef59-5a6b-44a8-bb09-2c5ad78a06a2" />
+
 
 ### 认证
 
